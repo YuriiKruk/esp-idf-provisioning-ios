@@ -37,6 +37,8 @@ public enum ESPWiFiScanError: ESPError {
     case emptyResultCount
     /// Consist of errors generated during sending, recieving and parsing of request/response related with Wi-Fi scan.
     case scanRequestError(Error)
+    /// Failed to decrypt scan response data from ESPDevice.
+    case decryptionFailed
     
     public var description: String {
         switch self {
@@ -46,6 +48,8 @@ public enum ESPWiFiScanError: ESPError {
             return "Number of Wi-Fi network scanned result is nil"
         case .scanRequestError(let error):
             return "Request for returning Wi-Fi network list failed with error: \(error.localizedDescription)"
+        case .decryptionFailed:
+            return "Failed to decrypt Wi-Fi scan response received from device."
         }
     }
     
@@ -57,6 +61,8 @@ public enum ESPWiFiScanError: ESPError {
             return 2
         case .scanRequestError(_):
             return 3
+        case .decryptionFailed:
+            return 4
         }
     }
 }
